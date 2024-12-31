@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
 
+// Basic Wallet: Create a contract where users can deposit and withdraw Ether.
+
 contract BasicWallet {
     // Event to log deposits.
     event Deposit(address indexed sender, uint256 amount);

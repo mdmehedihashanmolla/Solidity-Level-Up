@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
 
+//Mapping Basics: Build a mapping that associates addresses with integer values.
+
 contract AddressToInteger {
     mapping(address => uint) public balances;
 

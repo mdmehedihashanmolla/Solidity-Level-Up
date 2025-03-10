@@ -17,7 +17,9 @@ contract VotingSystem {
 
     constructor(uint _votingDurationInMinutes) {
         owner = msg.sender;
-        votingDeadline = block.timestamp + (_votingDurationInMinutes * 1 minutes);
+        votingDeadline =
+            block.timestamp +
+            (_votingDurationInMinutes * 1 minutes);
     }
 
     function registerCandidate(string memory _name) public {
@@ -26,28 +28,27 @@ contract VotingSystem {
     }
 
     function vote(uint candidateIndex) public {
-        require(block.timestamp < votingDeadline, "Voting period has ended.");
-        require(!hasVoted[msg.sender], "You have already voted.");
-        require(candidateIndex < candidates.length, "Invalid candidate index.");
+        require(block.timestamp < votingDeadline, "Voting Period has ended");
+        require(!hasVoted[msg.sender], "You have already voted");
+        require(candidateIndex < candidates.length, "Invalid candidate index");
 
         hasVoted[msg.sender] = true;
         candidates[candidateIndex].voteCount++;
         emit Voted(msg.sender, candidates[candidateIndex].name);
     }
-
     function getCandidateCount() public view returns (uint) {
         return candidates.length;
     }
-
-    function getCandidate(uint index) public view returns (string memory, uint) {
+    function getCandidate(
+        uint index
+    ) public view returns (string memory, uint) {
         require(index < candidates.length, "Invalid index");
         Candidate memory c = candidates[index];
         return (c.name, c.voteCount);
     }
-
     function getWinner() public view returns (string memory, uint) {
         require(block.timestamp > votingDeadline, "Voting is still ongoing.");
-        
+
         if (candidates.length == 0) {
             return ("No candidates", 0);
         }
@@ -61,7 +62,6 @@ contract VotingSystem {
                 winnerIndex = i;
             }
         }
-
         return (candidates[winnerIndex].name, maxVotes);
     }
 }
